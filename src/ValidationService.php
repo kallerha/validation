@@ -31,10 +31,13 @@ class ValidationService
             $value = $property->getValue(object: $model);
             $property->setAccessible(accessible: false);
 
-            [$validator, $errorMessage] = array_pad($property->getAttributes(), length: 2, value: null);
+            foreach ($property->getAttributes() as $validator) {
+                /** @var iValidate $validation */
+                $validation = $validator->newInstance();
 
-            if (!($validator->newInstance())->validate(value: $value)) {
-                $results[basename($reflectionModel->getName())][$property->getName()][] = $errorMessage ? $errorMessage->getArguments()[0] : $errorMessage;
+                if (!$validation->validate(value: $value)) {
+                    $results[basename($reflectionModel->getName())][$property->getName()][] = $validation->getMessage();
+                }
             }
         }
 
