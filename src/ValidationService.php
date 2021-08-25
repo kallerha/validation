@@ -17,26 +17,29 @@ class ValidationService
      * @param object $model
      * @return array
      */
-    public function validate(object $model): array
+    public function validate(object...$models): array
     {
         $results = [];
-        $reflectionModel = new ReflectionObject(object: $model);
 
-        foreach ($reflectionModel->getProperties() as $property) {
-            if (empty($property->getAttributes())) {
-                continue;
-            }
+        foreach ($models as $model) {
+            $reflectionModel = new ReflectionObject(object: $model);
 
-            $property->setAccessible(accessible: true);
-            $value = $property->getValue(object: $model);
-            $property->setAccessible(accessible: false);
+            foreach ($reflectionModel->getProperties() as $property) {
+                if (empty($property->getAttributes())) {
+                    continue;
+                }
 
-            foreach ($property->getAttributes() as $validator) {
-                /** @var iValidate $validation */
-                $validation = $validator->newInstance();
+                $property->setAccessible(accessible: true);
+                $value = $property->getValue(object: $model);
+                $property->setAccessible(accessible: false);
 
-                if (!$validation->validate(value: $value)) {
-                    $results[basename($reflectionModel->getName())][$property->getName()][] = $validation->getMessage();
+                foreach ($property->getAttributes() as $validator) {
+                    /** @var iValidate $validation */
+                    $validation = $validator->newInstance();
+
+                    if (!$validation->validate(value: $value)) {
+                        $results[basename($reflectionModel->getName())][$property->getName()][] = $validation->getMessage();
+                    }
                 }
             }
         }
