@@ -12,25 +12,16 @@ use FluencePrototype\Validation\iValidate;
  * @package FluencePrototype\Validation\Validators
  */
 #[Attribute(Attribute::TARGET_PROPERTY)]
-class IsEmail implements iValidate
+class EmailValidation implements iValidate
 {
 
-    private string $errorMessage;
-
     /**
      * @inheritDoc
      */
-    public function __construct(string $errorMessage)
+    public function __construct(
+        private string $errorMessage
+    )
     {
-        $this->errorMessage = $errorMessage;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function validate(bool|float|int|null|string $value): bool
-    {
-        return (bool)filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL);
     }
 
     /**
@@ -39,6 +30,14 @@ class IsEmail implements iValidate
     public function getMessage(): string
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validate(bool|float|int|null|string $value): bool
+    {
+        return (bool)filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL);
     }
 
 }
