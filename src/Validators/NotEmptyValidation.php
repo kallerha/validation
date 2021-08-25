@@ -24,7 +24,7 @@ class NotEmptyValidation implements iValidate
 
     public function validate(float|bool|int|string|null $value): bool
     {
-       return $value === '' || $value === null;
+        return $value !== '' && $value !== null;
     }
 
 }
