@@ -37,7 +37,11 @@ class EmailValidation implements iValidate
      */
     public function validate(bool|float|int|null|string $value): bool
     {
-        return (bool)filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL);
+        if (!filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL, options: FILTER_FLAG_EMAIL_UNICODE)) {
+            return false;
+        }
+
+        return !checkdnsrr(hostname: substr(string: $value, offset: strpos(haystack: $value, needle: '@') + 1));
     }
 
 }
