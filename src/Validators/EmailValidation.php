@@ -41,7 +41,7 @@ class EmailValidation implements iValidate
             return false;
         }
 
-        return !checkdnsrr(hostname: substr(string: $value, offset: strpos(haystack: $value, needle: '@') + 1));
+        return checkdnsrr(hostname: substr(string: $value, offset: strpos(haystack: $value, needle: '@') + 1));
     }
 
 }
