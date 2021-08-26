@@ -38,7 +38,7 @@ class ValidationService
                     $validation = $validator->newInstance();
 
                     if (!$validation->validate(value: $value)) {
-                        $results[basename($reflectionModel->getName())][$property->getName()][] = $validation->getMessage();
+                        $results[$property->getName()][] = $validation->getMessage();
                     }
                 }
             }
