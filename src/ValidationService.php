@@ -37,8 +37,9 @@ class ValidationService
                     /** @var iValidate $validation */
                     $validation = $validator->newInstance();
 
-                    if (!$validation->validate(value: $value)) {
-                        $results[$property->getName()][] = $validation->getMessage();
+                    if (!$validation->validate(value: $value)
+                        && !isset($results[$property->getName()])) {
+                        $results[$property->getName()] = $validation->getMessage();
                     }
                 }
             }
