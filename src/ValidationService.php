@@ -14,7 +14,7 @@ class ValidationService
 {
 
     /**
-     * @param object $model
+     * @param object ...$models
      * @return array
      */
     public function validate(object...$models): array
