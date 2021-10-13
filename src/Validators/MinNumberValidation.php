@@ -9,12 +9,12 @@ use FluencePrototype\Validation\InvalidPropertyTypeException;
 use FluencePrototype\Validation\iValidate;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
-class MaxLengthValidation implements iValidate
+class MinNumberValidation implements iValidate
 {
 
     public function __construct(
         private string $errorMessage,
-        private int    $maxLength
+        private int    $min
     )
     {
     }
@@ -33,11 +33,11 @@ class MaxLengthValidation implements iValidate
      */
     public function validate(float|bool|int|string|null $value): bool
     {
-        if (!is_string($value)) {
-            throw new InvalidPropertyTypeException('$value is not a string');
+        if (!is_int($value)) {
+            throw new InvalidPropertyTypeException('$value is not an int');
         }
 
-        if (mb_strlen($value) > $this->maxLength) {
+        if ($value < $this->min) {
             return true;
         }
 

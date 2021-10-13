@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FluencePrototype\Validation\Validators;
 
 use Attribute;
+use FluencePrototype\Validation\InvalidPropertyTypeException;
 use FluencePrototype\Validation\iValidate;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
@@ -27,9 +28,14 @@ class NotEmptyValidation implements iValidate
 
     /**
      * @inheritDoc
+     * @throws InvalidPropertyTypeException
      */
     public function validate(float|bool|int|string|null $value): bool
     {
+        if (!is_string($value)) {
+            throw new InvalidPropertyTypeException('$value is not a string');
+        }
+
         return $value !== '' && $value !== null;
     }
 

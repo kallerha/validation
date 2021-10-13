@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FluencePrototype\Validation\Validators;
 
 use Attribute;
+use FluencePrototype\Validation\InvalidPropertyTypeException;
 use FluencePrototype\Validation\iValidate;
 
 /**
@@ -31,9 +32,14 @@ class EmailValidation implements iValidate
 
     /**
      * @inheritDoc
+     * @throws InvalidPropertyTypeException
      */
     public function validate(bool|float|int|null|string $value): bool
     {
+        if (!is_string($value)) {
+            throw new InvalidPropertyTypeException('$value is not a string');
+        }
+
         if (!filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL, options: FILTER_FLAG_EMAIL_UNICODE)) {
             return false;
         }
