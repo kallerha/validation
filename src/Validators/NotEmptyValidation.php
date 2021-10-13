@@ -17,11 +17,17 @@ class NotEmptyValidation implements iValidate
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getMessage(): string
     {
         return $this->errorMessage;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function validate(float|bool|int|string|null $value): bool
     {
         return $value !== '' && $value !== null;

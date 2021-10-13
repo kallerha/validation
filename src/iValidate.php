@@ -12,12 +12,6 @@ interface iValidate
 {
 
     /**
-     * iValidate constructor.
-     * @param string $errorMessage
-     */
-    public function __construct(string $errorMessage);
-
-    /**
      * @return string
      */
     public function getMessage(): string;

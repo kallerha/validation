@@ -8,11 +8,12 @@ use Attribute;
 use FluencePrototype\Validation\iValidate;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
-class NameValidation implements iValidate
+class MaxLengthValidation implements iValidate
 {
 
     public function __construct(
-        private string $errorMessage
+        private string $errorMessage,
+        private int    $maxLength
     )
     {
     }
@@ -30,19 +31,11 @@ class NameValidation implements iValidate
      */
     public function validate(float|bool|int|string|null $value): bool
     {
-        if (str_contains($value, '- ')) {
-            return false;
+        if (mb_strlen($value) > $this->maxLength) {
+            return true;
         }
 
-        if (str_contains($value, ' -')) {
-            return false;
-        }
-
-        if (!ctype_alpha(str_replace([' ', '-', 'æ', 'ø', 'å', 'Æ', 'Ø', 'Å'], '', $value))) {
-            return false;
-        }
-
-        return true;
+        return false;
     }
 
 }
