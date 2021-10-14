@@ -38,10 +38,10 @@ class MinNumberValidation implements iValidate
         }
 
         if ($value < $this->min) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 }

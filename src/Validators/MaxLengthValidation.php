@@ -38,10 +38,10 @@ class MaxLengthValidation implements iValidate
         }
 
         if (mb_strlen($value) > $this->maxLength) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 }

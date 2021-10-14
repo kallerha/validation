@@ -38,10 +38,10 @@ class MinLengthValidation implements iValidate
         }
 
         if (mb_strlen($value) < $this->minLength) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 }

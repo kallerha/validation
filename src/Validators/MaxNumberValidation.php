@@ -38,10 +38,10 @@ class MaxNumberValidation implements iValidate
         }
 
         if ($value > $this->max) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 }
