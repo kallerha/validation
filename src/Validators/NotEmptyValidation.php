@@ -28,14 +28,9 @@ class NotEmptyValidation implements iValidate
 
     /**
      * @inheritDoc
-     * @throws InvalidPropertyTypeException
      */
     public function validate(float|bool|int|string|null $value): bool
     {
-        if (!is_string($value)) {
-            throw new InvalidPropertyTypeException('$value is not a string');
-        }
-
         return $value !== '' && $value !== null;
     }
 
