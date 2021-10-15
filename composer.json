@@ -13,8 +13,8 @@
   ],
   "require": {
     "php": ">=8.0.0",
-    "ext-mbstring": "*",
-    "ext-ctype": "*"
+    "ext-ctype": "*",
+    "ext-mbstring": "*"
   },
   "autoload": {
     "psr-4": {
