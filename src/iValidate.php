@@ -20,6 +20,6 @@ interface iValidate
      * @param bool|float|int|string|null $value
      * @return bool
      */
-    public function validate(bool|float|int|null|string $value): bool;
+    public function validate(array|bool|float|int|null|object|string $value): bool;
 
 }

@@ -34,7 +34,7 @@ class EmailValidation implements iValidate
      * @inheritDoc
      * @throws InvalidPropertyTypeException
      */
-    public function validate(bool|float|int|null|string $value): bool
+    public function validate(array|bool|float|int|null|object|string $value): bool
     {
         if (!is_string($value)) {
             throw new InvalidPropertyTypeException('$value is not a string');

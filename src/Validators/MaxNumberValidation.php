@@ -31,7 +31,7 @@ class MaxNumberValidation implements iValidate
      * @inheritDoc
      * @throws InvalidPropertyTypeException
      */
-    public function validate(float|bool|int|string|null $value): bool
+    public function validate(array|bool|float|int|null|object|string $value): bool
     {
         if (!is_int($value)) {
             throw new InvalidPropertyTypeException('$value is not an int');
