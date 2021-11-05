@@ -16,6 +16,9 @@ use FluencePrototype\Validation\iValidate;
 class EmailValidation implements iValidate
 {
 
+    /**
+     * @param string $errorMessage
+     */
     public function __construct(
         private string $errorMessage
     )

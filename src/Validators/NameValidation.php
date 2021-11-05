@@ -8,10 +8,16 @@ use Attribute;
 use FluencePrototype\Validation\InvalidPropertyTypeException;
 use FluencePrototype\Validation\iValidate;
 
+/**
+ *
+ */
 #[Attribute(Attribute::TARGET_PROPERTY)]
 class NameValidation implements iValidate
 {
 
+    /**
+     * @param string $errorMessage
+     */
     public function __construct(
         private string $errorMessage
     )

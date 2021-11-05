@@ -7,10 +7,16 @@ namespace FluencePrototype\Validation\Validators;
 use Attribute;
 use FluencePrototype\Validation\iValidate;
 
+/**
+ *
+ */
 #[Attribute(Attribute::TARGET_PROPERTY)]
 class NotEmptyValidation implements iValidate
 {
 
+    /**
+     * @param string $errorMessage
+     */
     public function __construct(
         private string $errorMessage
     )

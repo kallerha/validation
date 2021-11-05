@@ -8,10 +8,17 @@ use Attribute;
 use FluencePrototype\Validation\InvalidPropertyTypeException;
 use FluencePrototype\Validation\iValidate;
 
+/**
+ *
+ */
 #[Attribute(Attribute::TARGET_PROPERTY)]
 class MaxLengthValidation implements iValidate
 {
 
+    /**
+     * @param string $errorMessage
+     * @param int $maxLength
+     */
     public function __construct(
         private string $errorMessage,
         private int    $maxLength

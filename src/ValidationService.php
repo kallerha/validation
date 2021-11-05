@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FluencePrototype\Validation;
 
+use ReflectionException;
 use ReflectionObject;
 
 /**
@@ -21,28 +22,31 @@ class ValidationService
     {
         $results = [];
 
-        foreach ($models as $model) {
-            $reflectionModel = new ReflectionObject(object: $model);
+        try {
+            foreach ($models as $model) {
+                $reflectionModel = new ReflectionObject(object: $model);
 
-            foreach ($reflectionModel->getProperties() as $property) {
-                if (empty($property->getAttributes())) {
-                    continue;
-                }
+                foreach ($reflectionModel->getProperties() as $property) {
+                    if (empty($property->getAttributes())) {
+                        continue;
+                    }
 
-                $property->setAccessible(accessible: true);
-                $value = $property->getValue(object: $model);
-                $property->setAccessible(accessible: false);
+                    $property->setAccessible(accessible: true);
+                    $value = $property->getValue(object: $model);
+                    $property->setAccessible(accessible: false);
 
-                foreach ($property->getAttributes() as $validator) {
-                    /** @var iValidate $validation */
-                    $validation = $validator->newInstance();
+                    foreach ($property->getAttributes() as $attribute) {
+                        $validate = $attribute->newInstance();
 
-                    if (!$validation->validate(value: $value)
-                        && !isset($results[$property->getName()])) {
-                        $results[$property->getName()] = $validation->getMessage();
+                        if ($validate instanceof iValidate &&
+                            !$validate->validate(value: $value) &&
+                            !isset($results[$property->getName()])) {
+                            $results[$property->getName()] = $validate->getMessage();
+                        }
                     }
                 }
             }
+        } catch (ReflectionException) {
         }
 
         return $results;
