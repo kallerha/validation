@@ -23,7 +23,7 @@ class InvalidPropertiesException extends Exception
      * @param array $errors
      * @param Throwable|null $previous
      */
-    #[Pure] public function __construct(string $message = '', array $errors, Throwable $previous = null)
+    #[Pure] public function __construct(string $message = '', array $errors = [], Throwable $previous = null)
     {
         parent::__construct($message, 400, $previous);
 
