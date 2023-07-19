@@ -43,7 +43,7 @@ class EmailValidValidation implements iValidate
             throw new InvalidPropertyTypeException('$value is not a string');
         }
 
-        return filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL, options: FILTER_FLAG_EMAIL_UNICODE);
+        return !!filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL, options: FILTER_FLAG_EMAIL_UNICODE);
     }
 
 }
