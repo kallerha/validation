@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace FluencePrototype\Validation\Validators;
@@ -13,7 +12,7 @@ use FluencePrototype\Validation\iValidate;
  * @package FluencePrototype\Validation\Validators
  */
 #[Attribute(Attribute::TARGET_PROPERTY)]
-class EmailValidation implements iValidate
+class EmailExistsValidation implements iValidate
 {
 
     /**
@@ -25,9 +24,6 @@ class EmailValidation implements iValidate
     {
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getMessage(): string
     {
         return $this->errorMessage;
@@ -41,10 +37,6 @@ class EmailValidation implements iValidate
     {
         if (!is_string($value)) {
             throw new InvalidPropertyTypeException('$value is not a string');
-        }
-
-        if (!filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL, options: FILTER_FLAG_EMAIL_UNICODE)) {
-            return false;
         }
 
         return checkdnsrr(hostname: substr(string: $value, offset: strpos(haystack: $value, needle: '@') + 1));
