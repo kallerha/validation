@@ -39,6 +39,10 @@ class EmailExistsValidation implements iValidate
             throw new InvalidPropertyTypeException('$value is not a string');
         }
 
+        if (!filter_var(value: $value, filter: FILTER_VALIDATE_EMAIL, options: FILTER_FLAG_EMAIL_UNICODE)) {
+            return true;
+        }
+
         return checkdnsrr(hostname: substr(string: $value, offset: strpos(haystack: $value, needle: '@') + 1));
     }
 
